@@ -1,4 +1,11 @@
-public class ChannelIterator implements IItrerator {
+package iterator;
+
+import observable.YouTubeChannel;
+import observer.IObserver;
+import java.util.List;
+
+public class ChannelIterator implements IIterator {
+
     private int index;
     private YouTubeChannel channel;
 
@@ -9,15 +16,16 @@ public class ChannelIterator implements IItrerator {
 
     @Override
     public boolean hasNext() {
-        return index < channel.getUser().size();
+        List<IObserver> observers = channel.getObservers();
+        return index < observers.size();
     }
 
     @Override
     public IObserver next() {
+        List<IObserver> observers = channel.getObservers();
         if (hasNext()) {
-            return channel.getUser().get(index++);
+            return observers.get(index++);
         }
         return null;
     }
-
 }
